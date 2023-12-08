@@ -1,0 +1,62 @@
+h1 {
+    text-align: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2vw;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#newGame {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#grid-container {
+    margin-top: 0px;
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.cell-size-9 {
+    width: 10%;
+    height: 10%;   
+}
+
+.cell-size-16 {
+    width: 5.7%;
+    height: 5.7%;
+}
+
+.cell-size-22 {
+    width: 4.2%;
+    height: 4.2%;
+}
+
+.cell-size-30 {
+    width: 3%;
+    height: 3%;
+}
+
+.cell {
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    margin-bottom: -4px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démineur</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<header>
+    <h1>Démineur</h1>
+    <div class="top">
+        <label for="difficulty">Choisissez la difficulté :</label>
+        <select id="difficulty" onchange="createGrid()">
+        <option value="beginner">Débutant</option>
+        <option value="intermediate">Intermédiaire</option>
+        <option value="expert">Expert</option>
+        <option value="master">Maître</option>
+        </select>
+
+    <div id="newGame"><button id="newGameButton" onclick="newGame()">Nouvelle partie</button></div>
+
+    <div id="chrono">00:00</div>
+    </div>
+    
+</header>
+
+<body>
+    <div id="grid-container"></div>
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
