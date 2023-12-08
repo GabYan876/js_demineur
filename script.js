@@ -17,22 +17,33 @@ let running = false
 let elapsedTime = 0
 
 function start() {
+    document.getElementById('chrono').textContent = '00:00'
     if (!running) {
-        startTime = new Date().getTime() - elapsedTime;
-        interval = setInterval(updateTimer, 50);
-        running = true;
+        startTime = new Date().getTime() - elapsedTime
+        interval = setInterval(updateTimer, 50)
+        running = true
     }
 }
 
 function updateTimer() {
-    const currentTime = new Date().getTime();
-    elapsedTime = currentTime - startTime;
+    const currentTime = new Date().getTime()
+    elapsedTime = currentTime - startTime
 
-    const minutes = Math.floor(elapsedTime / 60000);
-    const seconds = Math.floor((elapsedTime % 60000) / 1000);
+    const minutes = Math.floor(elapsedTime / 60000)
+    const seconds = Math.floor((elapsedTime % 60000) / 1000)
 
-    const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    document.getElementById('chrono').textContent = formattedTime;
+    const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+    document.getElementById('chrono').textContent = formattedTime
+}
+
+function reset() {
+    clearInterval(interval);
+    document.getElementById('chrono').textContent = '00:00'
+    document.getElementById('startButton').disabled = false
+    document.getElementById('stopButton').disabled = true
+    document.getElementById('resetButton').disabled = true
+    running = false;
+    elapsedTime = 0;
 }
 
 
