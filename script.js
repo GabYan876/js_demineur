@@ -1,14 +1,26 @@
 class Cellule {
-    constructor() {
+    constructor(x, y, hidden, bomb, flag, nbr) {
         this.element = document.createElement("div")
         this.element.className = "cell"
-        this.element.x = 0
-        this.element.y = 0
-        this.element.bomb = false
-        this.element.flag = false
+        this.x = x
+        this.y = y
+        this.hidden = hidden || true
+        this.bomb = bomb || false
+        this.flag = flag || false
+        this.nbr = nbr
+    }
+
+    updateVisual () {
+        this.element.innerHTML = ''
+
+        if (this.flag) {
+            this.element.innerHTML = '<img src="images/flag.png" alt="flag">'
+        }
+        else if (this.bomb) {
+            this.element.innerHTML = '<img src="images/bomb.png" alt="bomb">'
+        }
     }
 }
-
 
 // chrono
 let startTime
@@ -39,24 +51,22 @@ function updateTimer() {
 function reset() {
     clearInterval(interval);
     document.getElementById('chrono').textContent = '00:00'
-    document.getElementById('startButton').disabled = false
-    document.getElementById('stopButton').disabled = true
-    document.getElementById('resetButton').disabled = true
-    running = false;
-    elapsedTime = 0;
+    running = false
+    elapsedTime = 0
 }
 
 
-
+// grid
 function createGrid() {
 
-    var difficulty = document.getElementById("difficulty").value
+    // Initialisation
+    let difficulty = document.getElementById("difficulty").value
 
-    var gridContainer = document.getElementById("grid-container")
+    let gridContainer = document.getElementById("grid-container")
 
     gridContainer.innerHTML = ""
 
-    var gridSize
+    let gridSize
 
     switch (difficulty) {
         case "beginner":
@@ -77,20 +87,22 @@ function createGrid() {
 
 
     // Créer la grille
-    for (var i = 0; i < gridSize; i++) {
-        for (var j = 0; j < gridSize; j++) {
-            var cellule = new Cellule()
-
-            cellule.element.classList.add("cell-size-" + gridSize);
-
-
-
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            
+            let cellule = new Cellule(j, i)
+            
+            cellule.element.classList.add("cell-size-" + gridSize)
             gridContainer.appendChild(cellule.element)
+
+            cellule.element.innerHTML = '<img class="innerCell" onclick="updateVisual()" src="images/normal.png" alt="normal">'
         }
     }
 }
 
+// New Game
 function newGame() {
     createGrid()
+    reset()
     start()
 }
