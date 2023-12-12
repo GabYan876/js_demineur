@@ -10,15 +10,15 @@ class Cellule {
         this.nbr = nbr
     }
 
-    updateVisual () {
-        this.element.innerHTML = ''
+    yo () {
+        //if (this.flag) {
+        //    this.element.innerHTML = '<img src="images/flag.png" alt="flag">'
+        //}
+        //else if (this.bomb) {
+        //    this.element.innerHTML = '<img src="images/bomb.png" alt="bomb">'
+        //}
 
-        if (this.flag) {
-            this.element.innerHTML = '<img src="images/flag.png" alt="flag">'
-        }
-        else if (this.bomb) {
-            this.element.innerHTML = '<img src="images/bomb.png" alt="bomb">'
-        }
+        console.log("yo")
     }
 }
 
@@ -67,22 +67,30 @@ function createGrid() {
     gridContainer.innerHTML = ""
 
     let gridSize
+    let nbr_bomb
+    let cellulesArray = []
 
     switch (difficulty) {
         case "beginner":
             gridSize = 9
+            nbr_bomb = 10
+            max = 9
             break
         case "intermediate":
             gridSize = 16
+            nbr_bomb = 40
+            max = 16
             break
         case "expert":
             gridSize = 22
+            nbr_bomb = 100
+            max = 22
             break
         case "master":
             gridSize = 30
+            nbr_bomb = 250
+            max = 30
             break
-        default:
-            gridSize = 9 
     }
 
 
@@ -90,14 +98,29 @@ function createGrid() {
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
             
-            let cellule = new Cellule(j, i)
+            let cellule = new Cellule(j+1, i+1)
             
             cellule.element.classList.add("cell-size-" + gridSize)
             gridContainer.appendChild(cellule.element)
+            cellulesArray.push(cellule)
 
-            cellule.element.innerHTML = '<img class="innerCell" onclick="updateVisual()" src="images/normal.png" alt="normal">'
+            cellule.element.innerHTML = '<img class="innerCell" onclick="leftClick()" src="images/normal.png" alt="normal">'
         }
     }
+
+    // placement des bombes
+    do {
+        x = Math.floor(Math.random() * max) + 1
+        y = Math.floor(Math.random() * max) + 1
+
+        let cellule = cellulesArray.find((cellule) => cellule.x === x && cellule.y === y)
+
+        if (cellule.x == x && cellule.y == y) {
+            cellule.bomb = true
+        }
+
+        nbr_bomb--
+    } while (nbr_bomb > 0)
 }
 
 // New Game
