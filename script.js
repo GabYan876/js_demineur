@@ -10,6 +10,7 @@ class Cellule {
         this.nbr = nbr || 0
     }
 
+    //affectation des chiffres
     hisNbr() {
         const adjacentCoordinates = [
             { dx: -1, dy: -1 }, { dx: 0, dy: -1 }, { dx: 1, dy: -1 },
@@ -33,6 +34,7 @@ class Cellule {
         this.nbr = nbrBomb
     }
 
+    // click droit
     leftClickOnCell() {
 
         this.unhide()
@@ -61,6 +63,7 @@ class Cellule {
         }
     }
 
+    // révéler une cellule
     unhide() {
         this.hidden = false
 
@@ -102,6 +105,7 @@ class Cellule {
         }
     }
 
+    // click droit
     putRemoveFlag() {
         if (this.flag === false) {
             this.flag = true
@@ -218,16 +222,19 @@ function leftClick(event) {
 
     let cellule = cellulesArray.find(cellule => cellule.element === event.target.parentElement)
 
+    // affectation des bombes si premier click
     if (firstClick === true) {
         firstClick = false
         bombedGrid(event.target)
 
     }
 
+    // revelation de la cellule
     if (cellule.flag === false && cellule.hidden === true) {
         cellule.leftClickOnCell()
     }
 
+    // verification si Win
     let unhiddenCell = 0
 
     for (let i in cellulesArray) {
@@ -252,7 +259,10 @@ function rightClick(event) {
     }
 }
 
+// affectation des bombes et des chiffres
 function bombedGrid(clickedCell) {
+
+    // initialisation
     let celluleClicked = cellulesArray.find(cellule => cellule.element === clickedCell.parentElement);
     let adjacentArray = []
     let nbr_bombInRest = nbr_bomb
@@ -262,7 +272,7 @@ function bombedGrid(clickedCell) {
         { dx: -1, dy: 1 },  { dx: 0, dy: 1 },  { dx: 1, dy: 1 }
     ]
 
-    // Collecter les cellules adjacentes
+    // collecter les cellules adjacentes
     for (let i in adjacentCoordinates) {
         let xAdjacent = celluleClicked.x + adjacentCoordinates[i].dx
         let yAdjacent = celluleClicked.y + adjacentCoordinates[i].dy
@@ -272,7 +282,7 @@ function bombedGrid(clickedCell) {
         }
     }
 
-    // Placer les bombes de manière aléatoire, à l'exception des cellules adjacentes
+    // placer les bombes
     while (nbr_bombInRest > 0) {
         let x = Math.floor(Math.random() * max) + 1
         let y = Math.floor(Math.random() * max) + 1
@@ -286,7 +296,7 @@ function bombedGrid(clickedCell) {
         }
     }
 
-    // Mettre à jour les nombres pour les cellules
+    // affectation des chiffres
     for (let cellule of cellulesArray) {
         cellule.hisNbr();
     }
